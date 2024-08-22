@@ -1,56 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
-    <link rel="stylesheet" href="output.css">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Link Swiper's CSS -->
+  <!-- npx tailwindcss -i ./src/input.css -o ./main/output.css --watch -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <title>Document</title>
+  <link rel="stylesheet" href="output.css">
+  <link href='https://fonts.googleapis.com/css?family=Alatsi' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'infinite-scroll': 'infinite-scroll 20s linear infinite',
+                    },
+                    keyframes: {
+                        'infinite-scroll': {
+                            to: { transform: 'translateX(0)' },
+                            from: { transform: 'translateX(-100%)' },
+                            
+                        }
+                        
+                    }                    
+                },
+            },
+        };
+    </script>
+      <!-- For scrolling animation -->
+   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+   
 
-    <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-   <!-- For scrolling animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  
 
-  <!-- Demo styles -->
-  <style>
-    html,
-    body  {
-      position: relative;
-      height: 100%;
-     
-    }
+<style>
 
 
-    body::-webkit-scrollbar{
+.font1{
+  font-family: 'Alatsi';
+}
+
+.font2{
+  font-family: 'Josefin Slab';
+}
+
+  .active {
+    display: block;
+  }
+
+
+body::-webkit-scrollbar{
       display:none;
+      
     }
 
     body {
       background: #eee;
-      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-      font-size: 14px;
       color: #000;
       margin: 0;
       padding: 0;
-      transition: 0.5s ease-in
+      transition: 0.5s ease-in;
     }
 
+    .btn:hover{
+     filter:drop-shadow(0 0 10px #fffdef);
+    }
+
+    /* .font1{
+      -webkit-mask-image: linear-gradient(90deg, transparent, #161414 20%, #131212 80%, transparent);
+    } */
+
     .swiper {
-    /* width: 1000px;
-    height: 300px; */
+    width: 85%;
+    height: 300px;
     margin-top: 20px;
+   
     border-radius: 10px;
     z-index: -1;
-    margin-left: 20px;
+    margin-left: 0px;
+    border-radius: 10px;
     
     }
+
 
     .swiper-slide {
       text-align: center;
@@ -59,6 +101,8 @@
       display: flex;
       justify-content:start;
       align-items: center;
+      border-radius: 10px;
+      
     }
 
     .swiper-slide img {
@@ -67,699 +111,1025 @@
       height: 100%;
       object-fit: cover;
       border-radius: 10px;
+      
     }
+    
+
+
+    
 
     #scroll::-webkit-scrollbar{
       display:none;
     }
 
-      </style>
+   
+
+
+.stock-ticker {
+  font-size: 15px;
+  padding-block: 8px;
+ 
+  overflow: hidden;
+  user-select: none;
+
+  --gap: 20px;
+  display: flex;
+  gap: var(--gap);
+}
+
+.stock-ticker ul {
+  list-style: none;
+  flex-shrink: 0;
+  min-width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap);
+
+  animation: scroll 120s linear infinite ;
+}
+
+.stock-ticker:hover ul {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(calc(-100%));
+  }
+}
+
+
+
+
+
+
+.stock-ticker .company,
+.stock-ticker .price {
+  font-weight: bold;
+}
+
+/* .glow{
+animation: animate 1s ease-in-out infinite alternate;
+} */
+
+@keyframes animate{
+  from{
+    text-shadow: 0 0 10px #289aab;
+  }
+  to{
+    text-shadow: 0 0 30px #289aab, 0 0 10px #289aab
+  }
+}
+
+.stock-ticker .price {
+  margin-inline: 4px;
+}
+
+.nav{
+  display: none;
+}
+
+.nav.tog{
+  display: block;
+}
+
+</style>
 </head>
-<body class="bg-white">
 
-  <div id="main" data-scroll-container >
+
+<body class="bg-gradient-to-r from-blue-300 to-pink-200">
+  
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+    <!-- <div>
+      <img src="webdenn bg.webp" alt="" class="absolute z-[-1] w-[2000px]">
+    </div> -->
     
-      <div class="flex justify-around  bg-blue-500  w-[100%] h-[50px] z-[1]">
-        
-        <ul class="flex items-center md:space-x-16 space-x-4 text-white">
-            <li class="md:text-[30px] text-[20px] font-bold animate__animated animate__bounceInLeft"> magicbricks</li>
-            <li class="md:text-[20px] text-[15px] mt-[5px] animate__animated animate__bounceInLeft"> New-Delhi <i class="fa-solid fa-angle-down"></i></li>
-          </ul>
-        
-           
-          <ul class="flex md:space-x-10 space-x-4 items-center  text-white">
-            <li class="md:block hidden md:text-[20px] text-[15px]  animate__animated animate__bounceInRight ">MB Prime <i class="fa-solid fa-angle-down"></i></li>
-            <li class="md:text-[20px] text-[15px] animate__animated animate__bounceInRight">Login <i class="fa-solid fa-angle-down"></i></li>
-            <button class="border  py-1 md:px-3 px-1 rounded-[20px] bg-white text-black md:text-[20px] text-[8px] animate__animated animate__bounceInRight">Post Property</button>
-
-          </ul> 
-    </div>
-
-    <div  class="  mt-[20px] pt-[20px]  w-[100%] bg-white md:block hidden animate__animated animate__fadeInUp z-[1]">
-        <ul class=" md:flex md:justify-center md:space-x-10 flex justify-center gap-2 md:mr-[0px] font-thin border-b-2 bg-white">
-          <div>
-            <li class="hover:text-blue-500 md:text-[15px] text-[15px]">Buy <i class="fa-solid fa-angle-down text-blue-500"></i></li>
-          </div>
-            
-          <div>
-            <li>Rent <i class="fa-solid fa-angle-down text-blue-500"></i></li>
-          </div>
-           
-          <div>
-            <li>Sell <i class="fa-solid fa-angle-down text-blue-500"></i></li>
-          </div>
-            
-          <div>
-            <li>HomeLoans <i class="fa-solid fa-angle-down text-blue-500"></i></li>
-          </div>
-            
-          <div>
-            <li>Property Services <i class="fa-solid fa-angle-down text-blue-500"></i></li>
-          </div>
-            
-          <div>
-            <li>MB Advice <i class="fa-solid fa-angle-down text-blue-500"></i></li>
-          </div>
-           
+  
+    <!-- <nav class="nav fixed inset-0 bg-white z-[1] pt-[80px] h-[100vh] ">
+      <div class="flex justify-center items-center font-bold">
+        <ul class="space-y-10 mt-[80px] shadow-lg shadow-black  border border-gray-700 text-center px-28 py-10 rounded-lg backdrop-blur-md   ">
+          <li class="font1 text-[20px] sm:text-[30px] hover:text-white transition-all cursor-pointer">HOME</li>
+          <li class="font1 text-[20px] sm:text-[30px] hover:text-white transition-all cursor-pointer">ABOUT</li>
+          <li class="font1 text-[20px] sm:text-[30px] hover:text-white transition-all cursor-pointer">CONTACT</li>
+          <li class="font1 text-[20px] sm:text-[30px] hover:text-white transition-all cursor-pointer">INFO</li>
         </ul>
-    </div>
+      </div>
 
-    </nav>
+      <div class="absolute top-0 z-[-1] blur-sm ">
+        <img src="landing-page2.jpg" alt="">
+        
+        
+      </div>
 
+    </nav> -->
 
+  <!-- start nav -->
 
+  <div class="main-container">
 
-    <!-- <section class="flex w-[100%]">
-        <div class=" left mt-[60px] md:mt-[100px] animate__animated animate__fadeInUp ">
-            <h1 class=" font-thin md:pl-[500px] ml-[90px] md:mt-[20px] md:text-[30px] text-[20px] ">Find a home you'll <span class="font-serif text-blue-500">Love</span></h1>
+    <div class="swiper mySwiper sm:rotate-[40deg] absolute z-[-1]  xl:flex hidden   md:h-56 sm:ml-[300px] mt-[00px]  ">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide ">
+          <img src="bed-1.jpg" alt="" class="">
         </div>
-    </section>
+        <div class="swiper-slide">
+          <img src="landing-page.png" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="landing-page2.jpg" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="landing-page3.jpg" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="landing-page4.webp" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="landing-page5.png" alt="">
+        </div>
+          <div class="swiper-slide">
+            <img src="landing-page6.png" alt="">
+          </div>
+          <div class="swiper-slide">
+            <img src="landing-page7.jpg" alt="">
+          </div>
+      </div>
+      <div class="swiper-pagination"></div>
+      </div>
 
-     <div class="bg-white md:w-[728px] h-[50px] md:ml-[380px] rounded-[25px] border border-black mt-[40px] animate__animated animate__fadeInUp">
-                <i class="fa-solid fa-location-dot text-[25px] ml-[10px] pr-[10px] mt-[10px] text-blue-500"></i>
-                <input type="text" class=" border-none  ml-[00px] pr-[130px] md:pr-[500px] py-[8px] rounded-[25px] focus:outline-none " placeholder="Search here">
-            </div>
 
-    <ul class="md:flex  md:space-x-10 flex  space-x-5 md:mr-[0px]   md:pl-[450px] pl-[20px] md:mt-[40px] mt-[10px] animate__animated animate__fadeInUp">
-        <li class="md:text-[20px] text-[13px]">Buy</li>
-        <li class="md:text-[20px] text-[13px]">Rent</li>
-        <li class="md:text-[20px] text-[13px]">New Projects</li>
-        <li class="md:text-[20px] text-[13px]">PG</li>
-        <li class="md:text-[20px] text-[13px]">Plotes </li>
-        <li class="md:text-[20px] text-[13px]">commercial</li>
-    </ul>
+     
 
-    <div class="">
-
-        <h1 class="md:text-[30px] font-bold  md:ml-[100px]  ml-[30px] mt-[10px]">Best Deals</h1>
-       
-  <div class="swiper mySwiper" data-aos="zoom-in">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <img src="bed.jpeg" alt="">
-      </div>
-      <div class="swiper-slide">
-        <img src="bed2.jpeg" alt="">
-      </div>
-      <div class="swiper-slide">
-        <img src="bed3.jpeg" alt="">
-      </div>
-      <div class="swiper-slide">
-        <img src="bed4.jpg" alt="">
-      </div>
-      <div class="swiper-slide">
-        <img src="bed.jpeg" alt="">
-      </div>
-      <div class="swiper-slide">
-        <img src="bed2.jpeg" alt="">
-      </div>
-      <div class="swiper-slide">
-        <img src="bed3.jpeg" alt="">
-      </div>
-      <div class="swiper-slide">
-        <img src="bed4.jpg" alt="">
-      </div>
-    </div>
-    <div class="swiper-pagination"></div>
-  </div>
-    </div>
 
       
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 
 
-    <div class="md:text-[25px] font-bold md:ml-[100px] ml-[30px] md:mt-[20px] mt-[10px]">
-        <h1>Popular Owner properties</h1>
-    </div>
-
-    <div class="flex justify-start h-[300px] ">
-      <div class="overflow-x-auto overflow-y-hidden flex gap-2 ml-[0px]" id="scroll">
-    <div class=" flex  mt-[10px] gap-2 md:ml-[40px]" data-aos="zoom-in">
-        <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px] animate__animated animate__flipInX  ">
-            <img src="bed4.jpg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-            <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-            <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-            <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
+          <!-- <div class="swiper mySwiper rotate-[10deg] absolute z-[-1] hidden xl:flex ">
+      <div class="swiper-wrapper ">
+        <div class="swiper-slide">
+          <img src="bed-1.jpg" alt="" class="w-[200px]">
         </div>
-
-        <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-            <img src="bed.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-            <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-            <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-            <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
+        <div class="swiper-slide">
+          <img src="landing-page.png" alt="">
         </div>
-
-        <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-            <img src="bed2.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-            <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-            <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-            <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
+        <div class="swiper-slide">
+          <img src="landing-page2.jpg" alt="">
         </div>
-
-        <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-            <img src="bed3.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-            <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-            <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-            <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
+        <div class="swiper-slide">
+          <img src="landing-page3.jpg" alt="">
         </div>
-
-        <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-          <img src="bed4.jpg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-          <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-          <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-          <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
+        <div class="swiper-slide">
+          <img src="landing-page4.webp" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="landing-page5.png" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="landing-page6.png" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="landing-page7.jpg" alt="">
+        </div>
       </div>
+      <div class="swiper-pagination"></div>
+      </div>
+      </div> -->
 
-      <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px] md:mt-[0px] animate__animated animate__flipInX">
-        <img src="bed.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-        <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-        <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-        <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-    </div>
-
-    <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-      <img src="bed2.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-      <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-      <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-      <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-  </div>
-
-  <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-    <img src="bed3.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-    <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-    <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-    <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-</div> 
-    </div>
-  </div>
-  </div>
-
-
-    <div class="md:text-[25px] font-bold md:ml-[100px] ml-[30px] md:mt-[20px] mt-[10px]">
-        <h1>Advice And Tools</h1>
-    </div>
-
-    <div class=" md:flex md:ml-[100px] mt-[10px] gap-2 " data-aos="zoom-in">
-        <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[50px] rounded-[10px]">
-            
-            <h1 class="font-thin ml-[40px] mt-[10px]"><i class="fa-solid fa-arrow-up-right-dots text-[40px]"></i></h1>
-            <h1 class="font-bold ml-[40px] mt-[10px]"></i>Rates And Trends </h1>
-            <p class="ml-[40px]">Know all about Property Rates And<br>Trends in your city</p>
-            <h1 class="font-bold ml-[40px] text-red-600">View now <i class="fa-solid fa-arrow-right"></i></h1>
-        </div>
-
-        <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[50px] rounded-[10px] mt-[10px] md:mt-[0px]">
-           
-            <h1 class="font-thin ml-[40px] mt-[10px]"><i class="fa-solid fa-calculator text-[40px]"></i></h1>
-            <h1 class="font-bold ml-[40px] mt-[10px]"> EMI Calculator </h1>
-            <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-            <h1 class="font-bold ml-[40px] text-red-600">View now <i class="fa-solid fa-arrow-right"></i></h1>
-        </div>
-
-        <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[50px] rounded-[10px] mt-[10px] md:mt-[0px]">
-            
-            <h1 class="font-thin ml-[40px] mt-[10px]"><i class="fa-solid fa-hand-holding-dollar text-[40px]"></i></h1>
-            <h1 class="font-bold ml-[40px] mt-[10px]">Investment Hotspot</h1>
-            <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-            <h1 class="font-bold ml-[40px] text-red-600">View now <i class="fa-solid fa-arrow-right"></i></h1>
-        </div>
-
-        <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[50px] rounded-[10px] mt-[10px] md:mt-[0px]">
-           
-            <h1 class="font-thin ml-[40px] mt-[10px]"><i class="fa-solid fa-book text-[40px]"></i></h1>
-            <h1 class="font-bold ml-[40px] mt-[10px]">Research</h1>
-            <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-            <h1 class="font-bold ml-[40px] text-red-600">View now <i class="fa-solid fa-arrow-right"></i></h1>
-        </div>
-    </div>
-  
-
-    <div class="flex border border-gray-300 justify-evenly mt-[30px] md:w-[1220px] md:ml-[110px] h-[100px] items-center rounded-[10px] bg-pink-100" data-aos="slide-right">
-        <div class="md:mr-[200px]">
-            <h1 class="md:text-[35px] font-bold">Post Your Property</h1>
-            <p class="md:text-[25px]">List it on Magicbrick and get genuine leads</p>
-        </div>
-        <div>
-            <button class="border border-black md:px-[80px] md:py-[10px] md:rounded-[20px] rounded-[10px] font-bold bg-blue-500 text-white">Post Properties</button>
-        </div>
-    </div>
-
+    <nav class="font flex items-center justify-between border-b-2 border-gray-300 pb-2  p-1 w-full top-0 bg-transparent  fixed z-[1] sm:shadow-2xl">
+      
+       <div>
+        <img src="webdenn-logo-removebg-preview.png" alt="" class="w-[50px] sm:w-[80px]  text-purple-950 ">
+       </div>
     
-   
-
-
-    <div class="md:text-[25px] font-bold md:ml-[100px] ml-[30px] md:mt-[20px] mt-[10px]">
-        <h1>Popular Owner properties</h1>
-    </div>
-
-    <div class="flex justify-start h-[300px] ">
-      <div class="overflow-x-auto overflow-y-hidden flex gap-2 ml-[0px]" id="scroll">
-    <div class=" flex  mt-[10px] gap-2 md:ml-[40px]" data-aos="slide-left">
-        <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px] animate__animated animate__flipInX ">
-            <img src="bed4.jpg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-            <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-            <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-            <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-        </div>
-
-        <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-            <img src="bed.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-            <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-            <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-            <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-        </div>
-
-        <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-            <img src="bed2.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-            <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-            <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-            <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-        </div>
-
-        <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-            <img src="bed3.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-            <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-            <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-            <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-        </div>
-
-        <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-          <img src="bed4.jpg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-          <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-          <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-          <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
+      <div class="space-x-2">
+        <!-- <button class="btn border border-gray-500 hover:border-[2px] py-1 px-2 sm:py-2 sm:px-4 text-[12px] sm:text-[18px] text-gray-500">REQUEST A QUOTE</button>
+        <a href="#" class="font-bold text-[15px] sm:text-[23px]"id="btn"><i class="fa-solid fa-bars"></i> MENU</a> -->
+        <ul class="flex justify-evenly space-x-4 px-2 cursor-pointer text-purple-950 sm:text-[20px]">
+          <li>Home</li>
+          <li>Contact</li>
+          <li>Clients</li>
+        </ul>
       </div>
+    </nav>
+  
+  
+    <!-- Start  hero-section -->
+    <div class="hero lg:px-[100px] mt-[100px] xl:mt-[0px]  leading-relaxed  ">
+      <div class="font1 left sm:mt-[0px] xl:mt-[100px] p-4 py-8 ">
+        <!-- <h1 class="text-[20px] sm:text-[30px]">TOP WEB DESIGN AGENCY</h1> -->
 
-      <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px] md:mt-[0px] animate__animated animate__flipInX">
-        <img src="bed.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-        <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-        <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-        <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-    </div>
+        <!-- <div class="flex items-center justify-center sm:justify-start   space-x-2 sm:space-x-10">
 
-    <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-      <img src="bed2.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-      <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-      <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-      <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-  </div>
+          <div class="">
+            <h1 class="text-[40px] sm:text-[70px] font-bold leading-snug">BUSINESSS  </h1>
+          </div>
+          
 
-  <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-    <img src="bed3.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-    <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-    <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-    <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-</div> 
-    </div>
-  </div>
-  </div> -->
+          <div class=" relative">
+            <h1 class="absolute top-2 sm:top-7  xl:top-8 text-[40px] sm:text-[60px] font-bold leading-snug  sm:ml-8 ml-6">BRAND</h1>
+            <img src="moblie.jpg" alt="" class=" w-[150px] sm:w-[300px]  ">
+          </div>
+
+        </div> -->
 
 
-    <!-- Footer-->
-<!-- <footer class="bg-blue-100/80 font-sans dark:bg-gray-900 mt-[30px]">
-    <div class="container px-6 py-12 mx-auto">
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
-            <div class="sm:col-span-2">
-                <h1 class="max-w-lg text-xl font-semibold tracking-tight text-gray-800 xl:text-2xl dark:text-white">Subscribe our newsletter to get an update.</h1>
-
-                <div class="flex flex-col mx-auto mt-6 space-y-3 md:space-y-0 md:flex-row">
-                    <input id="email" type="text" class="px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300" placeholder="Email Address" />
-            
-                    <button class="w-full px-6 py-2.5 text-sm font-medium tracking-wider text-white transition-colors duration-300 transform md:w-auto md:mx-4 focus:outline-none bg-gray-800 rounded-lg hover:bg-gray-700 focus:ring focus:ring-gray-300 focus:ring-opacity-80">
-                        Subscribe
-                    </button>
-                </div>
-            </div>
-
-            <div>
-                <p class="font-semibold text-gray-800 dark:text-white">Quick Link</p>
-
-                <div class="flex flex-col items-start mt-5 space-y-2">
-                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Home</p>
-                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Who We Are</p>
-                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Our Philosophy</p>
-                </div>
-            </div>
-
-            <div>
-                <p class="font-semibold text-gray-800 dark:text-white">Industries</p>
-
-                <div class="flex flex-col items-start mt-5 space-y-2">
-                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Realstate</p>
-                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Realstate</p>
-                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Realstate</p>
-                </div>
-            </div>
+        <div>
+          <img src="Webdenn__2_-removebg-preview.png" alt="" class=" w-[500px]">
         </div>
-        
-        <hr class="my-6 border-gray-200 md:my-8 dark:border-gray-700 h-2" />
-        
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <div class="flex flex-1 gap-4 hover:cursor-pointer">
-                <img src="https://www.svgrepo.com/show/303139/google-play-badge-logo.svg" width="130" height="110" alt="" />
-                <img src="https://www.svgrepo.com/show/303128/download-on-the-app-store-apple-logo.svg" width="130" height="110" alt="" />
-            </div>
-            
-            <div class="flex gap-4 hover:cursor-pointer">
-                <img src="https://www.svgrepo.com/show/303114/facebook-3-logo.svg" width="30" height="30" alt="fb" />
-                <img src="https://www.svgrepo.com/show/303115/twitter-3-logo.svg" width="30" height="30" alt="tw" />
-                <img src="https://www.svgrepo.com/show/303145/instagram-2-1-logo.svg" width="30" height="30" alt="inst" />
-                <img src="https://www.svgrepo.com/show/94698/github.svg" class="" width="30" height="30" alt="gt" />
-                <img src="https://www.svgrepo.com/show/22037/path.svg" width="30" height="30" alt="pn" />
-                <img src="https://www.svgrepo.com/show/28145/linkedin.svg" width="30" height="30" alt="in" />
-                <img src="https://www.svgrepo.com/show/22048/dribbble.svg" class="" width="30" height="30" alt="db" />
-            </div>
+          
+        <div class="text-center sm:text-left px-3 text-purple-950  ">
+          <p class="text-[30px]">Grow more everyday</p>
+        <button class="btn border border-gray-500 py-2 px-14 sm:text-[25px] mt-[10px] hover:border-[2px] hover:shadow-lg transition-all rounded-[50px]">Call Us <i class="fa-solid fa-arrow-right"></i></button>
         </div>
-        <p class="font-sans p-8 text-start md:text-center md:text-lg md:p-4">© 2024 Magicbrick All rights reserved.</p>
-    </div>
-</footer> -->
-<div class="hero mt-[10px] sm:mt-[60px] flex justify-center items-center ">
-    <div class=" sm:flex flex-col items-center ">
-      <h1 class="font-bold text-[30px] px-2 text-center">Welcome Back Let's continue your search</h1>
-      <div class="hidden sm:flex gap-8 ">
-        <a href="#">Buy</a>
-        <a href="#">Rent</a>
-        <a href="#">New Projects</a>
-        <a href="#">PG</a>
-        <a href="#">Plot</a>
-        <a href="#">Commercial</a>
-        <a href="#">Post free</a>
+
       </div>
+      <!-- <div class=" hidden xl:flex  backdrop-blur-md w-[350px] h-[200px] mt-[600px]  ml-[400px] rotate-6">
+       
+      </div> -->
+
      
     </div>
-  </div>
-
-  <div class=" flex justify-center  px-2 sm:px-0 items-center mt-[10px]">
-    <input type="text" class=" border border-black  sm:py-[15px] p-2  ml-[00px] pr-[130px] md:pr-[500px] py-[8px] rounded-[25px] focus:outline-none " placeholder="Search here">
-  </div>
-
-  <div class="">
-
-    <h1 class="md:text-[30px] font-bold  md:ml-[100px]  ml-[30px] mt-[10px]">Best Deals</h1>
-   
-<div class="swiper mySwiper" data-aos="zoom-in">
-<div class="swiper-wrapper">
-  <div class="swiper-slide">
-    <img src="bed.jpeg" alt="">
-  </div>
-  <div class="swiper-slide">
-    <img src="bed2.jpeg" alt="">
-  </div>
-  <div class="swiper-slide">
-    <img src="bed3.jpeg" alt="">
-  </div>
-  <div class="swiper-slide">
-    <img src="bed4.jpg" alt="">
-  </div>
-  <div class="swiper-slide">
-    <img src="bed.jpeg" alt="">
-  </div>
-  <div class="swiper-slide">
-    <img src="bed2.jpeg" alt="">
-  </div>
-  <div class="swiper-slide">
-    <img src="bed3.jpeg" alt="">
-  </div>
-  <div class="swiper-slide">
-    <img src="bed4.jpg" alt="">
-  </div>
-</div>
-<div class="swiper-pagination"></div>
-</div>
-</div>
-
-  
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-<div class="md:text-[25px] font-bold md:ml-[100px] ml-[30px] md:mt-[20px] mt-[10px]">
-  <h1>Popular Owner properties</h1>
-</div>
-
-<div class="flex justify-start h-[300px]">
-<div class="overflow-x-auto overflow-y-hidden flex gap-2 ml-[0px]" id="scroll">
-<div class=" flex  mt-[10px] gap-2 md:ml-[40px]" data-aos="zoom-in">
-  <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px] animate__animated animate__flipInX  ">
-      <img src="bed4.jpg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-      <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-      <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-      <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-  </div>
-
-  <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-      <img src="bed.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-      <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-      <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-      <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-  </div>
-
-  <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-      <img src="bed2.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-      <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-      <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-      <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-  </div>
-
-  <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-      <img src="bed3.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-      <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-      <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-      <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-  </div>
-
-  <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-    <img src="bed4.jpg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-    <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-    <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-    <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-</div>
-
-<div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px] md:mt-[0px] animate__animated animate__flipInX">
-  <img src="bed.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-  <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-  <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-  <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-</div>
-
-<div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-<img src="bed2.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-<h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-<h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-<p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-</div>
-
-<div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-<img src="bed3.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-<h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-<h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-<p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-</div> 
-</div>
-</div>
-</div>
-
-<!-- <div class="">
-  <div class="md:text-[25px] font-bold md:ml-[100px] ml-[30px] md:mt-[20px] mt-[10px]">
-    <h1>Advice And Tools</h1>
-  </div>
-  
-  <div class="flex justify-center border border-black">
-    <div class=" md:flex md:justify-center mt-[10px] gap-2  " data-aos="zoom-in">
-      <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] rounded-[10px]">
-          
-          <h1 class="font-thin ml-[40px] mt-[10px]"><i class="fa-solid fa-arrow-up-right-dots text-[40px]"></i></h1>
-          <h1 class="font-bold ml-[40px] mt-[10px]"></i>Rates And Trends </h1>
-          <p class="ml-[40px]">Know all about Property Rates And<br>Trends in your city</p>
-          <h1 class="font-bold ml-[40px] text-red-600">View now <i class="fa-solid fa-arrow-right"></i></h1>
-      </div>
-    
-      <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px]  rounded-[10px] mt-[10px] md:mt-[0px]">
-         
-          <h1 class="font-thin ml-[40px] mt-[10px]"><i class="fa-solid fa-calculator text-[40px]"></i></h1>
-          <h1 class="font-bold ml-[40px] mt-[10px]"> EMI Calculator </h1>
-          <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-          <h1 class="font-bold ml-[40px] text-red-600">View now <i class="fa-solid fa-arrow-right"></i></h1>
-      </div>
-    
-      <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px]  rounded-[10px] mt-[10px] md:mt-[0px]">
-          
-          <h1 class="font-thin ml-[40px] mt-[10px]"><i class="fa-solid fa-hand-holding-dollar text-[40px]"></i></h1>
-          <h1 class="font-bold ml-[40px] mt-[10px]">Investment Hotspot</h1>
-          <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-          <h1 class="font-bold ml-[40px] text-red-600">View now <i class="fa-solid fa-arrow-right"></i></h1>
-      </div>
-    
-      <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px]  rounded-[10px] mt-[10px] md:mt-[0px]">
-         
-          <h1 class="font-thin ml-[40px] mt-[10px]"><i class="fa-solid fa-book text-[40px]"></i></h1>
-          <h1 class="font-bold ml-[40px] mt-[10px]">Research</h1>
-          <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-          <h1 class="font-bold ml-[40px] text-red-600">View now <i class="fa-solid fa-arrow-right"></i></h1>
-      </div>
-    </div>
-  </div>
-
-</div> -->
-
-<div class="flex justify-center">
-  <div class="flex border border-gray-300  mt-[30px] md:w-[1220px]  h-[100px] items-center rounded-[10px] bg-pink-100" data-aos="slide-right">
-    <div class="md:mr-[20px]">
-        <h1 class="md:text-[35px] font-bold">Post Your Property</h1>
-        <p class="md:text-[25px]">List it on Magicbrick and get genuine leads</p>
-    </div>
-    <div>
-        <button class="border border-black md:px-[80px] md:py-[10px] md:rounded-[20px] rounded-[10px] font-bold bg-blue-500 text-white">Post Properties</button>
-    </div>
-  </div>
-</div>
-
-
-<div class="md:text-[25px] font-bold md:ml-[100px] ml-[30px] md:mt-[20px] mt-[10px]">
-  <h1>Popular Owner properties</h1>
-</div>
-
-<div class="flex justify-start h-[300px] ">
-<div class="overflow-x-auto overflow-y-hidden flex gap-2 ml-[0px]" id="scroll">
-<div class=" flex  mt-[10px] gap-2 md:ml-[40px]" data-aos="zoom-in">
-  <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px] animate__animated animate__flipInX  ">
-      <img src="bed4.jpg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-      <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-      <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-      <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-  </div>
-
-  <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-      <img src="bed.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-      <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-      <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-      <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-  </div>
-
-  <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-      <img src="bed2.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-      <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-      <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-      <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-  </div>
-
-  <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-      <img src="bed3.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-      <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-      <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-      <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-  </div>
-
-  <div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-    <img src="bed4.jpg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-    <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-    <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-    <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-</div>
-
-<div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px] md:mt-[0px] animate__animated animate__flipInX">
-  <img src="bed.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-  <h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-  <h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-  <p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-</div>
-
-<div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-<img src="bed2.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-<h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-<h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-<p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-</div>
-
-<div class="border border-gray-400 md:w-[300px] w-[300px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
-<img src="bed3.jpeg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
-<h1 class="font-thin ml-[40px] mt-[10px]">3BHK Flat</h1>
-<h1 class="font-bold ml-[40px]"> <i class="fa-solid fa-indian-rupee-sign"></i>1.60 Cr <span class="font-thin"> | | </span> 1800 sqft</h1>
-<p class="ml-[40px]">Greater Kailash; New-Delhi <br>Ready to move</p>
-</div> 
-</div>
-</div>
-</div>
-
 
 
   
- <footer class="bg-blue-100/80 font-sans dark:bg-gray-900 mt-[30px]">
-    <div class="container px-6 py-12 mx-auto">
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
-            <div class="sm:col-span-2">
-                <h1 class="max-w-lg text-xl font-semibold tracking-tight text-gray-800 xl:text-2xl dark:text-white">Subscribe our newsletter to get an update.</h1>
+  <!-- logos -->
+  <main class="relative  flex flex-col justify-center  overflow-hidden ">
+    <div class="w-full max-w-5xl mx-auto px-1 md:px-1 py-2 mt-[0px] ">
+        <div class="text-center mt-[0px] sm:mt-[0px] ">
 
-                <div class="flex flex-col mx-auto mt-6 space-y-3 md:space-y-0 md:flex-row">
-                    <input id="email" type="text" class="px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300" placeholder="Email Address" />
+            <!-- Logo Carousel animation -->
+            <!-- <div
+                x-data="{}"
+                x-init="$nextTick(() => {
+                    let ul = $refs.logos;
+                    ul.insertAdjacentHTML('afterend', ul.outerHTML);
+                    ul.nextSibling.setAttribute('aria-hidden', 'true');
+                })"
+                class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]"
+            >
+                <ul x-ref="logos" class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
+                    <li>
+                        <img src="sony.png" alt="Facebook" / class="w-[100px]">
+                    </li>
+                    <li>
+                        <img src="hp.png" alt="Disney" / class="w-[50px]">
+                    </li>
+                    <li>
+                        <img src="apple.png" alt="Airbnb" / class="w-[50px]">
+                    </li>
+                    <li>
+                        <img src="./webdenlogo.png" alt="Apple" />
+                    </li>
+                    <li>
+                      <img src="sony.png" alt="Facebook" / class="w-[100px]">
+                  </li>
+                  <li>
+                      <img src="hp.png" alt="Disney" / class="w-[50px]">
+                  </li>
+                  <li>
+                      <img src="apple.png" alt="Airbnb" / class="w-[50px]">
+                  </li>
+                  <li>
+                      <img src="./webdenlogo.png" alt="Apple" />
+                  </li>
+                    <li>
+                        <img src="microsoft.png" alt="Spark" / class="w-[150px]">
+                    </li> 
+                </ul>                
+            </div> -->
+            <!-- End: Logo Carousel animation -->
+
+
+            <div class="flex md:hidden justify-start h-[210px] mt-[20px] ">
+              <div class="overflow-x-auto overflow-y-hidden flex gap-2 ml-[0px]" id="scroll">
+              <div class=" flex  mt-[10px] gap-0 md:ml-[40px]" >
+                <div class="border border-gray-400 md:w-[300px] w-[200px] md:ml-[0px] ml-[0px] rounded-[10px] animate__animated animate__flipInX  ">
+                    <img src="webden-img.jpg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
+                    
+                </div>
+              
+                <div class="border border-gray-400 md:w-[300px] w-[200px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
+                    <img src="webden-img.jpg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
+                   
+                </div>
+              
+                <div class="border border-gray-400 md:w-[300px] w-[200px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
+                    <img src="webden-img.jpg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
+                    
+                </div>
+              
+                <div class="border border-gray-400 md:w-[300px] w-[200px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
+                    <img src="webden-img.jpg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
+                    
+                </div>
+              
+                <div class="border border-gray-400 md:w-[300px] w-[200px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
+                  <img src="webden-img.jpg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
+                  
+              </div>
+              
+              <div class="border border-gray-400 md:w-[300px] w-[200px] md:ml-[0px] ml-[30px] rounded-[10px] md:mt-[0px] animate__animated animate__flipInX">
+                <img src="webden-img.jpg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
+                
+              </div>
+              
+              <div class="border border-gray-400 md:w-[300px] w-[200px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
+              <img src="webden-img.jpg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
+              
+              </div>
+              
+              <div class="border border-gray-400 md:w-[300px] w-[200px] md:ml-[0px] ml-[30px] rounded-[10px]  md:mt-[0px] animate__animated animate__flipInX">
+              <img src="webden-img.jpg" alt="" class="md:w-[300px] md:h-[200px] w-[100%] h-[200px] rounded-[10px]">
+              
+              </div> 
+              </div>
+              </div>
+              </div>
+
             
-                    <button class="w-full px-6 py-2.5 text-sm font-medium tracking-wider text-white transition-colors duration-300 transform md:w-auto md:mx-4 focus:outline-none bg-gray-800 rounded-lg hover:bg-gray-700 focus:ring focus:ring-gray-300 focus:ring-opacity-80">
-                        Subscribe
-                    </button>
-                </div>
+
+
+            <div class="mt-[20px] text-purple-950">
+              <h1 class="font-bold text-[20px] sm:text-[35px]">GREAT WEBSITE EXPERIENCE</h1>
+              <p class="text-[14px] sm:text-[20px]">More than 20+ businesses have trusted Webdenn to grow</p>
+              <p class="text-[14px] sm:text-[20px]"> using our design and technology experties</p>
             </div>
 
-            <div>
-                <p class="font-semibold text-gray-800 dark:text-white">Quick Link</p>
 
-                <div class="flex flex-col items-start mt-5 space-y-2">
-                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Home</p>
-                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Who We Are</p>
-                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Our Philosophy</p>
-                </div>
+
+            <div class=" flex justify-center items-center mt-[20px] sm:space-x-10">
+              <div>
+                <img src="java img.webp" alt="" class="w-[80px]">
+              </div>
+
+              <div>
+                <img src="java img.webp" alt="" class="w-[80px]">
+              </div>
+
+              <div>
+                <img src="react img.webp" alt="" class="w-[80px]">
+              </div>
+
+              <div>
+                <img src="html img.webp" alt="" class="w-[80px]">
+              </div>
+
+              <div>
+                <img src="java img.webp" alt="" class="w-[80px]">
+              </div>
+
+              <div>
+                <img src="react img.webp" alt="" class="w-[80px]">
+              </div>
             </div>
 
-            <div>
-                <p class="font-semibold text-gray-800 dark:text-white">Industries</p>
+            <div class="">
+              <button class="btn border border-gray-500 py-2 px-14 sm:text-[25px] mt-[20px] hover:border-[2px] hover:shadow-lg transition-all rounded-[50px]">More Clients <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
 
-                <div class="flex flex-col items-start mt-5 space-y-2">
-                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Realstate</p>
-                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Realstate</p>
-                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Realstate</p>
-                </div>
-            </div>
-        </div>
-        
-        <hr class="my-6 border-gray-200 md:my-8 dark:border-gray-700 h-2" />
-        
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <div class="flex flex-1 gap-4 hover:cursor-pointer">
-                <img src="https://www.svgrepo.com/show/303139/google-play-badge-logo.svg" width="130" height="110" alt="" />
-                <img src="https://www.svgrepo.com/show/303128/download-on-the-app-store-apple-logo.svg" width="130" height="110" alt="" />
-            </div>
+
+
+
+
             
-            <div class="flex gap-4 hover:cursor-pointer">
-                <img src="https://www.svgrepo.com/show/303114/facebook-3-logo.svg" width="30" height="30" alt="fb" />
-                <img src="https://www.svgrepo.com/show/303115/twitter-3-logo.svg" width="30" height="30" alt="tw" />
-                <img src="https://www.svgrepo.com/show/303145/instagram-2-1-logo.svg" width="30" height="30" alt="inst" />
-                <img src="https://www.svgrepo.com/show/94698/github.svg" class="" width="30" height="30" alt="gt" />
-                <img src="https://www.svgrepo.com/show/22037/path.svg" width="30" height="30" alt="pn" />
-                <img src="https://www.svgrepo.com/show/28145/linkedin.svg" width="30" height="30" alt="in" />
-                <img src="https://www.svgrepo.com/show/22048/dribbble.svg" class="" width="30" height="30" alt="db" />
-            </div>
         </div>
-        <p class="font-sans p-8 text-start md:text-center md:text-lg md:p-4">© 2024 Magicbrick All rights reserved.</p>
+
     </div>
-</footer> 
+</main>
+    
+  
+    <div class="main p-4 flex flex-col sm:flex sm:flex-row justify-around items-center  mt-[10px] sm:mt-[50px]">
+  
+      <div class="font2 space-y-4" >
+        <h1 class="font left text-[40px] sm:text-[50px] font-bold leading-tight text-purple-950">Creative Web Agency <br>Delivery Custom Solutions</h1>
+  
+        <h1 class="text-[20px] sm:text-[25px]"> <i class="fa-solid fa-arrow-right text-purple-950"></i> Custom Web Design Solutions <span class="text-purple-950">To Drive Conversions</span></h1>
+        <h1 class="text-[20px] sm:text-[25px]"><i class="fa-solid fa-arrow-right text-purple-950"></i> Effective Marketing Campaigns <span class="text-purple-950">To Generate Growth</span></h1>
+        <h1 class="text-[20px] sm:text-[25px]"> <i class="fa-solid fa-arrow-right text-purple-950"></i> Tailored Branding Strategies <span class="text-purple-950">To Drive Engagement</span></h1>
+      </div>
+      <div class="right " data-aos="zoom-in-up">
+        <img src="https://www.digitalsilk.com/wp-content/uploads/2024/06/solutions.png" class="w-[500px] " alt="">
+      </div>
+  
+    </div>
+
+    <div class="flex flex-col justify-center items-center text-center p-4 ">
+      <div class="font2 leading-tight">
+        <h1 class="text-[25px] font-bold text-purple-950">OUR WORK</h1>
+        <h1 class="font text-[50px] py-8 font-bold  ">Featured Website Design Projects</h1>
+        <h1 class="text-[20px] sm:text-[25px] font-thin text-gray-700 ">Custom B2C, B2B and eCommerce solutions</h1>
+        <h1 class="text-[20px] sm:text-[25px] font-thin text-gray-700">optimized for traffic, engagement and conversion.</h1>
+      </div>
 
 
+
+      <div class="flex space-x-4 sm:space-x-10 p-4 text-[18px] sm:text-[25px] text-gray-700"  >
+        <div>
+          <div><i class="fa-solid fa-star hover:text-purple-950 transition-all"></i></div>
+          <div><h1 class="">FEATURED</h1></div>
+        </div>
+
+        <div>
+          <div><i class="fa-solid fa-handshake hover:text-purple-950 transition-all"></i></div>
+          <div class="">B2B</div>
+        </div>
+
+        <div>
+          <div><i class="fa-solid fa-wallet hover:text-purple-950 transition-all"></i></div>
+          <div class="">B2C</div>
+        </div>
+
+        <div>
+          <div><i class="fa-solid fa-cart-shopping hover:text-purple-950 transition-all"></i></div>
+          <div class="">ECOMMERCE</div>
+        </div>
+      </div>
+
+
+    </div>
  
-</div>
+
+
+    <div class=" p-4 flex flex-col sm:flex sm:flex-row justify-evenly items-center sm:mt-[50px]">
+      <div class="font1 left">
+        <h1 class="text-[18px] sm:text-[20px] font-bold text-purple-950">WHY DIGITAL SILK ?</h1>
+        <h1 class="sm:text-[50px] text-[30px] font-bold">Explore Our Web Design <br> Services</h1>
+      </div>
+      <div class="right sm:w-[500px] px-6 sm:text-[18px] text-gray-700 ">
+        <p> As a full-service web design agency, we handle all of your digital needs under one roof. Our custom web design services include thorough research and planning, bespoke designs and digital strategies tailored to grow your reach, drive traffic and encourage engagement.</p>
+      </div>
+    </div>
+
+    <div class=" flex flex-col sm:flex sm:flex-row justify-center items-center sm:mt-[50px] sm:space-x-4 mb-10 sm:p-4">
+
+    
+      <div class="relative object-cover group w-[300px]  overflow-hidden my-2" >
+        <img src="bussiness5.jpg" alt="" class="  h-[400px] w-full scale-100 transform object-cover object-center opacity-500 transition duration-300 group-hover:scale-125  ">
+        <div class="absolute top-[370px]   group-hover:-translate-y-[100%] transition duration-[400ms]  bg-black opacity-40 h-full w-full object-cover">
+        </div>
+        <div class="absolute top-[560px] group-hover:-translate-y-[100%] transition duration-[400ms]  bg-black opacity-50 h-full w-full object-cover">
+        </div>
+
+        <div class="absolute  top-[370px] group-hover:-translate-y-[100%]   duration-[400ms] font-bold text-white">
+          <h1 class="text-center">Professional Web Design</h1>
+          <p class="p-4 text-center"> Partnering with us means unlocking unrivalled industry expertise. Our professional designs are created to drive authority and credibility for your business. </p>
+        </div>
+      </div>
+
+
+      <div class="relative object-cover group w-[300px]  overflow-hidden my-2" >
+        <img src="bussiness6.avif" alt="" class="  h-[400px] w-full scale-100 transform object-cover object-center opacity-500 transition duration-300 group-hover:scale-125  ">
+        <div class="absolute top-[370px]   group-hover:-translate-y-[100%] transition duration-[400ms]  bg-black opacity-40 h-full w-full object-cover">
+        </div>
+        <div class="absolute top-[560px] group-hover:-translate-y-[100%] transition duration-[400ms]  bg-black opacity-50 h-full w-full object-cover">
+        </div>
+
+        <div class="absolute  top-[370px] group-hover:-translate-y-[100%]   duration-[400ms] font-bold text-white">
+          <h1 class="text-center">Professional Web Design</h1>
+          <p class="p-4 text-center"> Partnering with us means unlocking unrivalled industry expertise. Our professional designs are created to drive authority and credibility for your business. </p>
+        </div>
+      </div>
+
+
+
+      <div class="relative object-cover group w-[300px]  overflow-hidden my-2" >
+        <img src="bussiness7.avif" alt="" class="  h-[400px] w-full scale-100 transform object-cover object-center opacity-500 transition duration-300 group-hover:scale-125  ">
+        <div class="absolute top-[370px]   group-hover:-translate-y-[100%] transition duration-[400ms]  bg-black opacity-40 h-full w-full object-cover">
+        </div>
+        <div class="absolute top-[560px] group-hover:-translate-y-[100%] transition duration-[400ms]  bg-black opacity-50 h-full w-full object-cover">
+        </div>
+
+        <div class="absolute  top-[370px] group-hover:-translate-y-[100%]   duration-[400ms] font-bold text-white">
+          <h1 class="text-center">Professional Web Design</h1>
+          <p class="p-4 text-center"> Partnering with us means unlocking unrivalled industry expertise. Our professional designs are created to drive authority and credibility for your business. </p>
+        </div>
+      </div>
+
+
+
+      <div class="relative object-cover group w-[300px]  overflow-hidden my-2" >
+        <img src="bussiness8.jpg" alt="" class="  h-[400px] w-full scale-100 transform object-cover object-center opacity-500 transition duration-300 group-hover:scale-125  ">
+        <div class="absolute top-[370px]   group-hover:-translate-y-[100%] transition duration-[400ms]  bg-black opacity-40 h-full w-full object-cover">
+        </div>
+        <div class="absolute top-[560px] group-hover:-translate-y-[100%] transition duration-[400ms]  bg-black opacity-50 h-full w-full object-cover">
+        </div>
+
+        <div class="absolute  top-[370px] group-hover:-translate-y-[100%]   duration-[400ms] font-bold text-white">
+          <h1 class="text-center">Professional Web Design</h1>
+          <p class="p-4 text-center"> Partnering with us means unlocking unrivalled industry expertise. Our professional designs are created to drive authority and credibility for your business. </p>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="flex justify-center text-center p-4">
+      <div>
+        <h1 class="font2 text-[40px] font-bold  space-x-16 text-purple-950"> Our Website Design Process </h1>
+        <p class="text-[20px] text-gray-700"> How to create a website tailored to your unique business goals? <br>
+          Take a look at our design process that helps us deliver </p>
+
+          <h1 class="font1 text-[30px] text-gray-800">
+            customized and goal-oriented digital solutions.
+          </h1>
+      </div>
+    </div>
+
+
+    <div class="flex flex-col sm:flex sm:flex-row justify-center p-4 md:space-x-8 lg:space-x-20 space-y-8 sm:space-y-0 mt-[80px]" data-aos="fade-up">
+
+      <div class=" flex flex-col items-center ">
+        <div>
+          <h1 class="font1 text-center sm:text-[20px] text-gray-700 ">Web <br> Strategy</h1>
+        </div>
+        
+          <div class="c-media c-tbnav__media sm:mt-[20px]">
+
+            <svg class="" xmlns="http://www.w3.org/2000/svg" width="27" height="42" viewBox="0 0 27 40" fill="none">
+            <path  d="M24.3117 34.5159C24.3467 34.3568 24.3678 34.1926 24.3678 34.023C24.3678 32.8708 23.5131 31.9232 22.406 31.7582C22.2814 31.4115 22.1453 31.0768 22.0023 30.7315C21.0828 28.5099 19.8331 25.4828 19.7729 13.3329C21.0391 13.3315 22.069 12.3011 22.069 11.0345C22.069 10.7453 22.0092 10.4708 21.9113 10.2156C22.5563 9.80828 22.9885 9.09333 22.9885 8.27586V3.67816V0.91954V0H17.931V2.75862H17.0115V0H9.65517V2.75862H8.73563V0H3.67816V0.91954V3.67816V8.27586C3.67816 9.09333 4.11035 9.80828 4.7554 10.2156C4.65747 10.4708 4.5977 10.7453 4.5977 11.0345C4.5977 12.3011 5.62759 13.3315 6.89379 13.3333C6.83356 25.4832 5.58345 28.5103 4.66437 30.732C4.52138 31.0772 4.38575 31.412 4.26069 31.7586C3.15356 31.9232 2.29885 32.8708 2.29885 34.023C2.29885 34.1926 2.32 34.3568 2.35494 34.5159C1.02483 34.7122 0 35.8575 0 37.2414C0 38.7628 1.23724 40 2.75862 40H23.908C25.4294 40 26.6667 38.7628 26.6667 37.2414C26.6667 35.8575 25.6418 34.7122 24.3117 34.5159ZM4.13793 34.023C4.13793 33.7738 4.34851 33.5632 4.5977 33.5632H22.069C22.3182 33.5632 22.5287 33.7738 22.5287 34.023C22.5287 34.2722 22.3182 34.4828 22.069 34.4828H4.5977C4.34851 34.4828 4.13793 34.2722 4.13793 34.023ZM5.51724 1.83908H6.89655V4.5977H11.4943V1.83908H15.1724V4.5977H19.7701V1.83908H21.1494V3.67816V8.27586C21.1494 8.52506 20.9389 8.73563 20.6897 8.73563H5.97701C5.72782 8.73563 5.51724 8.52506 5.51724 8.27586V3.67816V1.83908ZM6.43678 11.0345C6.43678 10.7853 6.64736 10.5747 6.89655 10.5747H19.7701C20.0193 10.5747 20.2299 10.7853 20.2299 11.0345C20.2299 11.2837 20.0193 11.4943 19.7701 11.4943H6.89655C6.64736 11.4943 6.43678 11.2837 6.43678 11.0345ZM8.73333 13.3333H17.9333C17.9954 25.857 19.3255 29.0726 20.303 31.4349C20.3448 31.5361 20.3807 31.6276 20.4202 31.7241H6.24644C6.28552 31.628 6.32184 31.5361 6.36368 31.4349C7.34115 29.0726 8.67126 25.857 8.73333 13.3333ZM23.908 38.1609H2.75862C2.25149 38.1609 1.83908 37.7485 1.83908 37.2414C1.83908 36.7343 2.25149 36.3218 2.75862 36.3218H23.908C24.4152 36.3218 24.8276 36.7343 24.8276 37.2414C24.8276 37.7485 24.4152 38.1609 23.908 38.1609Z" fill="#3B7BCE"></path>
+            </svg>
+            </div>
+        </div>
+      
+
+
+      <div class=" flex flex-col  items-center">
+        <div>
+          <h1 class="font1 text-center sm:text-[20px] text-gray-700">Planning <br> Information Architecture</h1>
+        </div>
+        <div class="c-media c-tbnav__media sm:mt-[20px]">
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="41" height="42" viewBox="0 0 41 40" fill="none">
+          <path d="M19.5882 22.8787H4.23124C3.89507 22.8787 3.62305 22.6074 3.62305 22.2727V11.6666C3.62305 11.3319 3.89507 11.0605 4.23124 11.0605H19.5882C19.9243 11.0605 20.1964 11.3319 20.1964 11.6666V22.2727C20.1964 22.6074 19.9243 22.8787 19.5882 22.8787ZM4.83944 21.6666H18.98V12.2727H4.83944V21.6666Z" fill="#7748E3"></path>
+          <path d="M39.5327 40H0.608195C0.272025 40 0 39.7286 0 39.3939V0.606061C0 0.271366 0.272025 0 0.608195 0H39.5327C39.8688 0 40.1408 0.271366 40.1408 0.606061V39.3939C40.1408 39.7286 39.8688 40 39.5327 40ZM1.21639 38.7879H38.9245V1.21212H1.21639V38.7879Z" fill="#7748E3"></path>
+          <path d="M22.2765 4.88595H3.34648C3.01031 4.88595 2.73828 4.61458 2.73828 4.27989C2.73828 3.94519 3.01031 3.67383 3.34648 3.67383H22.2765C22.6127 3.67383 22.8847 3.94519 22.8847 4.27989C22.8847 4.61458 22.6127 4.88595 22.2765 4.88595Z" fill="#7748E3"></path>
+          <path d="M35.7905 5.28395C36.3469 5.28395 36.7979 4.83453 36.7979 4.28016C36.7979 3.72578 36.3469 3.27637 35.7905 3.27637C35.2342 3.27637 34.7832 3.72578 34.7832 4.28016C34.7832 4.83453 35.2342 5.28395 35.7905 5.28395Z" fill="#7748E3"></path>
+          <path d="M31.4741 5.28394C32.0304 5.28394 32.4814 4.83453 32.4814 4.28016C32.4814 3.72578 32.0304 3.27637 31.4741 3.27637C30.9178 3.27637 30.4668 3.72578 30.4668 4.28016C30.4668 4.83453 30.9178 5.28394 31.4741 5.28394Z" fill="#7748E3"></path>
+          <path d="M27.1616 5.28393C27.7179 5.28393 28.1689 4.83452 28.1689 4.28015C28.1689 3.72578 27.7179 3.27637 27.1616 3.27637C26.6053 3.27637 26.1543 3.72578 26.1543 4.28015C26.1543 4.83452 26.6053 5.28393 27.1616 5.28393Z" fill="#7748E3"></path>
+          <path d="M39.5327 8.56061H0.608195C0.272025 8.56061 0 8.28924 0 7.95455V0.606061C0 0.271366 0.272025 0 0.608195 0H39.5327C39.8688 0 40.1408 0.271366 40.1408 0.606061V7.95455C40.1408 8.28924 39.8688 8.56061 39.5327 8.56061ZM1.21639 7.34848H38.9245V1.21212H1.21639V7.34848Z" fill="#7748E3"></path>
+          <path d="M36.4407 13.5354H22.4012C22.065 13.5354 21.793 13.264 21.793 12.9293C21.793 12.5946 22.065 12.3232 22.4012 12.3232H36.4407C36.7769 12.3232 37.0489 12.5946 37.0489 12.9293C37.0489 13.264 36.7769 13.5354 36.4407 13.5354Z" fill="#7748E3"></path>
+          <path d="M36.4407 17.5754H22.4012C22.065 17.5754 21.793 17.304 21.793 16.9693C21.793 16.6346 22.065 16.3633 22.4012 16.3633H36.4407C36.7769 16.3633 37.0489 16.6346 37.0489 16.9693C37.0489 17.304 36.7769 17.5754 36.4407 17.5754Z" fill="#7748E3"></path>
+          <path d="M36.4407 21.6164H22.4012C22.065 21.6164 21.793 21.3451 21.793 21.0104C21.793 20.6757 22.065 20.4043 22.4012 20.4043H36.4407C36.7769 20.4043 37.0489 20.6757 37.0489 21.0104C37.0489 21.3451 36.7769 21.6164 36.4407 21.6164Z" fill="#7748E3"></path>
+          <path d="M36.4406 27.552H4.23124C3.89507 27.552 3.62305 27.2806 3.62305 26.9459C3.62305 26.6112 3.89507 26.3398 4.23124 26.3398H36.4406C36.7768 26.3398 37.0488 26.6112 37.0488 26.9459C37.0488 27.2806 36.7768 27.552 36.4406 27.552Z" fill="#7748E3"></path>
+          <path d="M36.4406 31.592H4.23124C3.89507 31.592 3.62305 31.3206 3.62305 30.9859C3.62305 30.6512 3.89507 30.3799 4.23124 30.3799H36.4406C36.7768 30.3799 37.0488 30.6512 37.0488 30.9859C37.0488 31.3206 36.7768 31.592 36.4406 31.592Z" fill="#7748E3"></path>
+          <path d="M36.4406 35.632H4.23124C3.89507 35.632 3.62305 35.3607 3.62305 35.026C3.62305 34.6913 3.89507 34.4199 4.23124 34.4199H36.4406C36.7768 34.4199 37.0488 34.6913 37.0488 35.026C37.0488 35.3607 36.7768 35.632 36.4406 35.632Z" fill="#7748E3"></path>
+          </svg>
+          </div>
+      </div>
+
+
+      <div class=" flex flex-col  items-center">
+        <div>
+          <h1 class="font1 text-center sm:text-[20px] text-gray-700">Creative <br> Design</h1>
+        </div>
+        <div class="c-media c-tbnav__media sm:mt-[20px]">
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="33" height="40" viewBox="0 0 33 40" fill="none">
+          <path d="M6.52671 16.4692C6.37086 19.3043 7.43627 22.0616 9.44998 24.0336C11.0366 25.5874 11.9466 27.727 11.9466 29.9039V31.159C11.9466 32.4919 13.0204 33.5759 14.3407 33.5759H18.0331C19.3534 33.5759 20.4272 32.4919 20.4272 31.159V29.9047C20.4272 27.7003 21.3143 25.5825 22.8614 24.0945C24.7967 22.2327 25.8626 19.7216 25.8626 17.0239C25.8626 11.6376 21.5221 7.25586 16.1867 7.25586C15.8226 7.25586 15.4528 7.2763 15.0878 7.31719C10.4656 7.83319 6.78513 11.7679 6.52671 16.4692ZM15.2816 9.0843C15.5827 9.05053 15.8873 9.03364 16.1871 9.03364C20.5514 9.03364 24.102 12.6176 24.102 17.0239C24.102 19.2305 23.2303 21.2843 21.6471 22.8074C19.7532 24.6292 18.6666 27.2159 18.6666 29.9047V31.159C18.6666 31.5114 18.3822 31.7981 18.0336 31.7981H14.3412C13.9921 31.7981 13.7081 31.511 13.7081 31.159V29.9039C13.7081 27.2492 12.6031 24.6447 10.6765 22.7576C9.02954 21.1447 8.15784 18.8883 8.28551 16.5679C8.49639 12.723 11.5042 9.50608 15.2816 9.0843Z" fill="#F1CD0E"></path>
+          <path d="M16.1877 11.4646C17.5058 11.4646 18.7821 11.9442 19.7815 12.8153C19.9065 12.9242 20.0597 12.9775 20.2129 12.9775C20.3983 12.9775 20.5823 12.8993 20.7131 12.7464C20.9517 12.4677 20.9209 12.0469 20.6448 11.806C19.4055 10.726 17.8228 10.1309 16.1877 10.1309C15.8228 10.1309 15.5273 10.4291 15.5273 10.7975C15.5273 11.166 15.8228 11.4646 16.1877 11.4646Z" fill="#F1CD0E"></path>
+          <path d="M21.6941 17.0241C21.6941 17.3926 21.9895 17.6908 22.3545 17.6908C22.7195 17.6908 23.0149 17.3926 23.0149 17.0241C23.0149 16.1721 22.8617 15.3397 22.5597 14.5495C22.4285 14.2063 22.0468 14.0357 21.706 14.1677C21.3657 14.3001 21.1962 14.6863 21.3278 15.0295C21.5708 15.6659 21.6941 16.337 21.6941 17.0241Z" fill="#F1CD0E"></path>
+          <path d="M19.0517 34.4541H13.3205C12.9556 34.4541 12.6602 34.7523 12.6602 35.1208C12.6602 35.4892 12.9556 35.7874 13.3205 35.7874H19.0522C19.4171 35.7874 19.7125 35.4892 19.7125 35.1208C19.7125 34.7523 19.4167 34.4541 19.0517 34.4541Z" fill="#F1CD0E"></path>
+          <path d="M19.7121 37.2272C19.7121 36.8588 19.4167 36.5605 19.0517 36.5605H13.3205C12.9556 36.5605 12.6602 36.8588 12.6602 37.2272C12.6602 37.5957 12.9556 37.8939 13.3205 37.8939H19.0522C19.4167 37.8939 19.7121 37.5952 19.7121 37.2272Z" fill="#F1CD0E"></path>
+          <path d="M0.660377 15.6738C0.295409 15.6738 0 15.9721 0 16.3405C0 16.7089 0.295409 17.0072 0.660377 17.0072H4.46547C4.83044 17.0072 5.12585 16.7089 5.12585 16.3405C5.12585 15.9721 4.83044 15.6738 4.46547 15.6738H0.660377Z" fill="#F1CD0E"></path>
+          <path d="M31.7116 17.0072C32.0765 17.0072 32.3719 16.7089 32.3719 16.3405C32.3719 15.9721 32.0765 15.6738 31.7116 15.6738H27.9065C27.5415 15.6738 27.2461 15.9721 27.2461 16.3405C27.2461 16.7089 27.5415 17.0072 27.9065 17.0072H31.7116Z" fill="#F1CD0E"></path>
+          <path d="M15.5273 0.666667V4.508C15.5273 4.87644 15.8228 5.17467 16.1877 5.17467C16.5527 5.17467 16.8481 4.87644 16.8481 4.508V0.666667C16.8481 0.298222 16.5527 0 16.1877 0C15.8228 0 15.5273 0.298222 15.5273 0.666667Z" fill="#F1CD0E"></path>
+          <path d="M24.9437 8.44482L27.634 5.72882C27.892 5.46882 27.892 5.04615 27.634 4.78615C27.3761 4.52571 26.9583 4.52571 26.7003 4.78615L24.0099 7.50215C23.7519 7.76215 23.7519 8.18482 24.0099 8.44482C24.1389 8.57504 24.3079 8.63993 24.477 8.63993C24.6461 8.63993 24.8147 8.57504 24.9437 8.44482Z" fill="#F1CD0E"></path>
+          <path d="M7.43074 24.2363L4.74037 26.9523C4.48238 27.2123 4.48238 27.6346 4.74037 27.895C4.86936 28.0252 5.03842 28.0901 5.20747 28.0901C5.37653 28.0901 5.54559 28.0252 5.67458 27.895L8.36496 25.179C8.62294 24.919 8.62294 24.4968 8.36496 24.2363C8.10697 23.9759 7.68873 23.9759 7.43074 24.2363Z" fill="#F1CD0E"></path>
+          <path d="M5.67414 4.78615C5.41615 4.52571 4.99835 4.52571 4.74037 4.78615C4.48238 5.04615 4.48238 5.46882 4.74037 5.72882L7.43074 8.44482C7.55974 8.57504 7.72879 8.63993 7.89785 8.63993C8.06691 8.63993 8.23596 8.57504 8.36496 8.44482C8.62294 8.18482 8.62294 7.76215 8.36496 7.50215L5.67414 4.78615Z" fill="#F1CD0E"></path>
+          <path d="M24.0099 24.2363C23.7519 24.4968 23.7519 24.919 24.0099 25.179L26.7003 27.895C26.8293 28.0252 26.9983 28.0901 27.1674 28.0901C27.3364 28.0901 27.5055 28.0252 27.6345 27.895C27.8925 27.6346 27.8925 27.2123 27.6345 26.9523L24.9441 24.2363C24.6857 23.9759 24.2679 23.9759 24.0099 24.2363Z" fill="#F1CD0E"></path>
+          <path d="M18.2801 39.3337C18.2801 38.9652 17.9847 38.667 17.6197 38.667H14.7541C14.3892 38.667 14.0938 38.9652 14.0938 39.3337C14.0938 39.7021 14.3892 40.0003 14.7541 40.0003H17.6197C17.9847 40.0003 18.2801 39.7021 18.2801 39.3337Z" fill="#F1CD0E"></path>
+          </svg>
+          </div>
+      </div>
+
+
+      <div class="flex flex-col  items-center">
+        <div>
+          <h1 class="font1 text-center sm:text-[20px] text-gray-700">Responsive <br> Development</h1>
+        </div>
+        <div class="c-media c-tbnav__media sm:mt-[20px]">
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 21" fill="none">
+          <path d="M11.0102 2.45925L3.44887 10.081L11.0102 17.7028C11.5687 18.2658 11.5687 19.1759 11.0102 19.7389C10.7316 20.0197 10.3659 20.1609 10.0002 20.1609C9.63447 20.1609 9.26876 20.0197 8.9902 19.7389L0.418921 11.0991C-0.13964 10.5361 -0.13964 9.626 0.418921 9.06297L8.9902 0.423129C9.54876 -0.139901 10.4516 -0.139901 11.0102 0.423129C11.5687 0.986159 11.5687 1.89622 11.0102 2.45925ZM39.5811 9.06297L31.0098 0.423129C30.4512 -0.139901 29.5484 -0.139901 28.9898 0.423129C28.4313 0.986159 28.4313 1.89622 28.9898 2.45925L36.5511 10.081L28.9898 17.7028C28.4313 18.2658 28.4313 19.1759 28.9898 19.7389C29.2684 20.0197 29.6341 20.1609 29.9998 20.1609C30.3655 20.1609 30.7312 20.0197 31.0098 19.7389L39.5811 11.0991C40.1396 10.5361 40.1396 9.626 39.5811 9.06297ZM24.9242 0.152413C24.2199 -0.203261 23.3614 0.0847346 23.0071 0.796082L14.4358 18.0758C14.083 18.7871 14.3687 19.6525 15.0744 20.0082C15.2801 20.1119 15.4972 20.1594 15.7115 20.1594C16.2358 20.1594 16.7401 19.8685 16.9915 19.3631L25.5628 2.08342C25.9156 1.37207 25.6299 0.508086 24.9242 0.152413Z" fill="#01AFE9"></path>
+          </svg>
+          </div>
+      </div>
+
+
+      <div class=" flex flex-col  items-center">
+        <div>
+          <h1 class="font1 text-center sm:text-[20px] text-gray-700">Quality <br> Assure</h1>
+        </div>
+        <div class="c-media c-tbnav__media sm:mt-[20px]">
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="36" viewBox="0 0 40 36" fill="none">
+          <path d="M7.87889 15.6318H1.12556C0.504249 15.6318 0 16.1321 0 16.7484V34.6132C0 35.2295 0.504249 35.7298 1.12556 35.7298H7.87889C8.5002 35.7298 9.00445 35.2295 9.00445 34.6132V16.7484C9.00445 16.1321 8.5002 15.6318 7.87889 15.6318ZM6.75333 33.4967H2.25111V17.8649H6.75333V33.4967Z" fill="#90C404"></path>
+          <path d="M39.496 17.2842C38.8522 15.8461 37.7447 15.6317 37.1436 15.6317H26.4711C26.7255 14.6759 27.6372 12.8068 28.335 11.3799C30.2395 7.47419 32.2092 3.43674 30.8518 1.29073C30.4826 0.705661 29.715 0.0133987 28.1392 0.0133987L26.6287 0C25.3095 0 23.1012 0 22.0049 2.17504C18.2658 9.57108 11.6701 15.8796 11.6025 15.9421C11.3797 16.1543 11.2559 16.4446 11.2559 16.7483V34.6131C11.2559 35.2294 11.7984 35.7296 12.4219 35.7296H32.6414C36.8172 35.7296 40.0003 25.4395 40.0003 20.2877C40.0003 19.0394 39.8315 18.0301 39.496 17.2842ZM32.6414 33.4965H13.507V17.2172C14.9657 15.7746 20.5575 10.0155 24.0152 3.17324C24.3888 2.43631 24.9516 2.2331 26.6287 2.2331L28.1392 2.2465C28.3846 2.2465 28.8168 2.27776 28.9428 2.47874C29.6384 3.57743 27.5539 7.85159 26.309 10.4085C24.5082 14.0953 23.6775 15.9243 24.4294 17.1123C24.6049 17.3914 25.0327 17.8648 25.8881 17.8648H37.1436C37.1909 17.8648 37.2922 17.8648 37.4385 18.1909C37.5804 18.508 37.7492 19.1265 37.7492 20.2877C37.7492 25.7298 34.4446 33.4965 32.6414 33.4965Z" fill="#90C404"></path>
+          </svg>
+          </div>
+      </div>
+
+
+      <div class=" flex flex-col  items-center">
+        <div>
+          <h1 class="font1 text-center sm:text-[20px] text-gray-700">Launch <br> And optimization</h1>
+        </div>
+        <div class="c-media c-tbnav__media sm:mt-[20px]">
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" viewBox="0 0 40 50" fill="none">
+          <path d="M5.10207 20.4157C14.7713 19.5423 24.0059 15.9918 31.7697 10.1625L32.5966 11.0327C32.6734 11.1115 32.7694 11.1687 32.8751 11.1989C32.9809 11.229 33.0927 11.2309 33.1994 11.2044C33.3061 11.1779 33.4041 11.1239 33.4834 11.0478C33.5628 10.9717 33.6209 10.8762 33.6519 10.7707L35.5005 4.18104C35.5287 4.07517 35.5288 3.96376 35.5008 3.85783C35.4728 3.7519 35.4177 3.65509 35.3409 3.57697C35.264 3.49885 35.1682 3.44211 35.0627 3.41235C34.9573 3.3826 34.8459 3.38085 34.7395 3.40729L28.1233 5.14318C28.0187 5.17191 27.9233 5.22718 27.8463 5.30363C27.7693 5.38009 27.7134 5.47512 27.684 5.57954C27.6546 5.68395 27.6526 5.79419 27.6784 5.89958C27.7041 6.00497 27.7566 6.10193 27.8308 6.18105L28.3938 6.76793C25.4618 9.46705 22.2306 11.8218 18.7632 13.7863C14.4421 16.232 9.79409 18.0487 4.95978 19.1815C4.81294 19.219 4.68468 19.3085 4.59876 19.4334C4.51283 19.5583 4.47505 19.7101 4.49241 19.8606C4.50977 20.0112 4.58109 20.1504 4.69318 20.2525C4.80527 20.3545 4.95053 20.4125 5.10207 20.4157ZM19.38 14.8745C23.1183 12.7565 26.5878 10.1959 29.7135 7.24793C29.8339 7.13294 29.9038 6.97493 29.908 6.8085C29.9121 6.64208 29.8501 6.4808 29.7355 6.35999L29.4699 6.08304L34.0012 4.89402L32.745 9.37314L32.2901 8.89467C32.1806 8.77964 32.0315 8.71053 31.873 8.70135C31.7145 8.69216 31.5584 8.74359 31.4363 8.8452C26.2367 12.8345 20.3167 15.784 14.0005 17.5323C15.8422 16.7482 17.6382 15.8609 19.38 14.8745Z" fill="#3B7BCE"></path>
+          <path d="M36.8853 35.3652H3.11658C2.95226 35.3676 2.79545 35.4345 2.68007 35.5515C2.56468 35.6685 2.5 35.8263 2.5 35.9906C2.5 36.1549 2.56468 36.3127 2.68007 36.4297C2.79545 36.5467 2.95226 36.6136 3.11658 36.616H36.8853C37.0497 36.6136 37.2065 36.5467 37.3219 36.4297C37.4372 36.3127 37.5019 36.1549 37.5019 35.9906C37.5019 35.8263 37.4372 35.6685 37.3219 35.5515C37.2065 35.4345 37.0497 35.3676 36.8853 35.3652Z" fill="#3B7BCE"></path>
+          <path d="M5.43394 26.165C5.35181 26.165 5.27048 26.1812 5.1946 26.2126C5.11872 26.244 5.04978 26.2901 4.9917 26.3482C4.93363 26.4062 4.88757 26.4752 4.85615 26.5511C4.82473 26.6269 4.80857 26.7083 4.80859 26.7904V33.3425C4.80857 33.4246 4.82473 33.5059 4.85615 33.5818C4.88757 33.6577 4.93363 33.7267 4.9917 33.7847C5.04978 33.8428 5.11872 33.8889 5.1946 33.9203C5.27048 33.9517 5.35181 33.9679 5.43394 33.9678H10.7311C10.8132 33.9679 10.8945 33.9517 10.9704 33.9203C11.0463 33.8889 11.1152 33.8428 11.1733 33.7847C11.2314 33.7267 11.2774 33.6577 11.3089 33.5818C11.3403 33.5059 11.3564 33.4246 11.3564 33.3425V26.7904C11.3564 26.7083 11.3403 26.6269 11.3089 26.5511C11.2774 26.4752 11.2314 26.4062 11.1733 26.3482C11.1152 26.2901 11.0463 26.244 10.9704 26.2126C10.8945 26.1812 10.8132 26.165 10.7311 26.165H5.43394ZM10.1057 32.7171H6.05929V27.4157H10.1057V32.7171Z" fill="#3B7BCE"></path>
+          <path d="M13.3793 22.8906C13.2971 22.8906 13.2158 22.9068 13.1399 22.9382C13.064 22.9696 12.9951 23.0157 12.937 23.0737C12.8789 23.1318 12.8329 23.2008 12.8015 23.2766C12.77 23.3525 12.7539 23.4338 12.7539 23.516V33.342C12.7539 33.4241 12.77 33.5055 12.8015 33.5813C12.8329 33.6572 12.8789 33.7262 12.937 33.7842C12.9951 33.8423 13.064 33.8884 13.1399 33.9198C13.2158 33.9512 13.2971 33.9674 13.3793 33.9673H18.6764C18.7585 33.9674 18.8398 33.9512 18.9157 33.9198C18.9916 33.8884 19.0606 33.8423 19.1186 33.7842C19.1767 33.7262 19.2228 33.6572 19.2542 33.5813C19.2856 33.5055 19.3018 33.4241 19.3017 33.342V23.516C19.3018 23.4338 19.2856 23.3525 19.2542 23.2766C19.2228 23.2008 19.1767 23.1318 19.1186 23.0737C19.0606 23.0157 18.9916 22.9696 18.9157 22.9382C18.8398 22.9068 18.7585 22.8906 18.6764 22.8906H13.3793ZM18.051 32.7167H14.0046V24.1413H18.051V32.7167Z" fill="#3B7BCE"></path>
+          <path d="M21.3246 18.9922C21.2424 18.9922 21.1611 19.0083 21.0852 19.0397C21.0093 19.0712 20.9404 19.1172 20.8823 19.1753C20.8243 19.2334 20.7782 19.3023 20.7468 19.3782C20.7154 19.4541 20.6992 19.5354 20.6992 19.6175V33.3425C20.6992 33.4247 20.7154 33.506 20.7468 33.5819C20.7782 33.6578 20.8243 33.7267 20.8823 33.7848C20.9404 33.8428 21.0093 33.8889 21.0852 33.9203C21.1611 33.9517 21.2424 33.9679 21.3246 33.9679H26.6217C26.7038 33.9679 26.7852 33.9517 26.861 33.9203C26.9369 33.8889 27.0059 33.8428 27.0639 33.7848C27.122 33.7267 27.1681 33.6578 27.1995 33.5819C27.2309 33.506 27.2471 33.4247 27.2471 33.3425V19.6175C27.2471 19.5354 27.2309 19.4541 27.1995 19.3782C27.1681 19.3023 27.122 19.2334 27.0639 19.1753C27.0059 19.1172 26.9369 19.0712 26.861 19.0397C26.7852 19.0083 26.7038 18.9922 26.6217 18.9922H21.3246ZM25.9964 32.7172H21.9499V20.2429H25.9964V32.7172Z" fill="#3B7BCE"></path>
+          <path d="M29.2699 14.4678C29.1878 14.4678 29.1064 14.4839 29.0305 14.5153C28.9547 14.5468 28.8857 14.5928 28.8276 14.6509C28.7696 14.709 28.7235 14.7779 28.6921 14.8538C28.6607 14.9297 28.6445 15.011 28.6445 15.0931V33.3427C28.6445 33.4248 28.6607 33.5062 28.6921 33.5821C28.7235 33.6579 28.7696 33.7269 28.8276 33.785C28.8857 33.843 28.9547 33.8891 29.0305 33.9205C29.1064 33.9519 29.1878 33.9681 29.2699 33.9681H34.567C34.6491 33.9681 34.7305 33.9519 34.8064 33.9205C34.8822 33.8891 34.9512 33.843 35.0093 33.785C35.0673 33.7269 35.1134 33.6579 35.1448 33.5821C35.1762 33.5062 35.1924 33.4248 35.1924 33.3427V15.0931C35.1924 15.011 35.1762 14.9297 35.1448 14.8538C35.1134 14.7779 35.0673 14.709 35.0093 14.6509C34.9512 14.5928 34.8822 14.5468 34.8064 14.5153C34.7305 14.4839 34.6491 14.4678 34.567 14.4678H29.2699ZM33.9417 32.7174H29.8952V15.7185H33.9417V32.7174Z" fill="#3B7BCE"></path>
+          </svg>
+          </div>
+      </div>
+
+    </div>
+
+    <div class="flex flex-col sm:flex sm:flex-row justify-evenly items-center sm:mt-[80px] p-4">
+      <div class="left sm:w-[500px]">
+        <h1 class="font2  text-[35px] font-bold text-purple-950">Launch & Optimization</h1>
+        <p class="mt-[20px] text-gray-800 sm:text-[20px] "> When our QA is complete, it’s time for launch! Our team will set up your server, carry out the DNS configuration and make sure all updates are finalized. We’ll provide Cloudflare security protection, along with both internal and external monitoring. </p>
+
+        <p class="mt-[20px] text-gray-800 sm:text-[20px]">
+          In this phase, we:
+        </p>
+
+        <div class="leading-loose sm:mt-[20px] sm:text-[20px]">
+          <h1> <i class="fa-solid fa-arrow-right text-p"></i> Perform final QA testing</h1>
+          <h1> <i class="fa-solid fa-arrow-right text-p"></i> Devise a markiting plan for lunch</h1>
+          <h1> <i class="fa-solid fa-arrow-right text-p"></i> Push your new digital solution live</h1>
+        </div>
+    
+      </div>
+      <div class="right" data-aos="zoom-in">
+        <img decoding="async" class="c-image__src" loading="lazy" src="https://www.digitalsilk.com/wp-content/uploads/2023/09/6_LAUNCH__OPTIMIZATION-1.png" alt="A vector image of a laptop with a web design on the screen" width="460" height="400" data-eio="p">
+      </div>
+    </div>
+
+
+    <div>
+      <div class="flex justify-center text-center mt-[20px] text-[40px] sm:text-[80px] font-bold text-blue-200">
+        <h1 class="glow ">GREAT SOFTWARE EXPERIENCES</h1>
+      </div>
+    </div>
+
+     <div class="flex justify-center items-center text-center p-4">
+      <div class="mt-[80px]">
+        <h1 class="text-[30px] font-bold text-purple-950">Our clients</h1>
+        <div class="mt-4 text-[20px] text-gray-700">
+          <p>More than 100+ businesses have trusted Webdenn to grow</p>
+          <p>using our design and technology expertise.</p>
+        </div>
+      </div>
+     </div>
+
+
+     <div class="mt-[50px] mb-[100px]">
+
+      <div class="flex flex-col sm:flex sm:flex-row justify-center items-center sm:space-x-8 md:space-x-10 lg:space-x-16 xl:space-x-40 space-y-20 sm:space-y-0 ">
+      
+        <img class="client-logo fix-70 h-[30px] w-[200px]  hover:scale-110 hover:transition-all   " data-aos="zoom-in-up" src="https://squareboat.com/storage/850/MicrosoftTeams-image-%2817%29.png" alt="hudle">
+  
+        <img class="client-logo fix-70 h-[30px] w-[200px] hover:scale-110 hover:transition-all  " data-aos="zoom-in-up" src="https://squareboat.com/storage/851/MicrosoftTeams-image-%2815%29.png" alt="hudle" >
+   
+        <img class="client-logo fix-70 h-[30px] w-[100px] hover:scale-110 hover:transition-all " data-aos="zoom-in-up" src="https://squareboat.com/storage/890/Chegg_logo.svg" alt="hudle">
+   
+        <img class="client-logo fix-70 h-[90px] w-[80px] hover:scale-110 hover:transition-all  " data-aos="zoom-in-up" src="https://squareboat.com/storage/3/jubilant.svg" alt="hudle" >
+  
+       </div>
+  
+  
+  
+       <div class="flex flex-col sm:flex sm:flex-row justify-center items-center sm:space-x-8 md:space-x-10 lg:space-x-16 xl:space-x-40 mt-[100px] space-y-20 sm:space-y-0 ">
+  
+        <div class="">
+          <img class="client-logo fix-70 h-[30px] w-[200px] hover:scale-110 hover:transition-all  " data-aos="zoom-in-up" src="https://squareboat.com/storage/30/paisabazaar.svg" alt="hudle" >
+        </div>
+        
+        <div class="">
+          <img class="client-logo fix-70 h-[30px] w-[200px]  hover:scale-110 hover:transition-all " data-aos="zoom-in-up" src="https://squareboat.com/storage/14/pvr-full.svg" alt="hudle" >
+        </div>
+        
+        <div class="">
+          <img class="client-logo fix-70 h-[30px] w-[100px]  hover:scale-110 hover:transition-all " data-aos="zoom-in-up" src="https://squareboat.com/storage/131/logo-4d2d81aefcf296bc100d9edc114c2ea5.png" alt="hudle">
+        </div>
+        
+        <div class="">
+          <img class="client-logo fix-70 h-[30px] w-[80px]  hover:scale-110 hover:transition-all " data-aos="zoom-in-up" src="https://squareboat.com/storage/136/Elevation_Primary_logo_RGB%402x.png" alt="hudle">
+        </div>
+        
+       </div>
+  
+  
+  
+       <div class="flex flex-col sm:flex sm:flex-row justify-center items-center sm:space-x-8 md:space-x-10 lg:space-x-16 xl:space-x-40 mt-[100px] space-y-20 sm:space-y-0">
+  
+        <div class="">
+          <img class="client-logo fix-70 h-[30px] w-[200px]  hover:scale-110 hover:transition-all " data-aos="zoom-in-up"  src="https://squareboat.com/storage/4/hudle.svg" alt="hudle" >
+        </div>
+        
+        <div class="">
+          <img class="client-logo fix-70 h-[30px] w-[200px] hover:scale-110 hover:transition-all" data-aos="zoom-in-up" src="https://squareboat.com/storage/20/lbb-full.svg" alt="hudle" >
+        </div>
+        
+        <div class="">
+          <img class="client-logo fix-70 h-[30px] w-[100px] hover:scale-110 hover:transition-all" data-aos="zoom-in-up" src="https://squareboat.com/storage/24/max-estates-full.svg" alt="hudle" >
+        </div>
+        
+        <div class="">
+          <img class="client-logo fix-70 h-[30px] w-[80px] hover:scale-110 hover:transition-all" data-aos="zoom-in-up" src="https://squareboat.com/storage/25/inlingua-full.svg" alt="hudle" >
+        </div>
+        
+       </div>
+
+
+
+       <div class="flex flex-col sm:flex sm:flex-row justify-center items-center sm:space-x-8 md:space-x-10 lg:space-x-16 xl:space-x-40 space-y-20 sm:space-y-0 mt-[100px] ">
+      
+        <img class="client-logo fix-70 h-[30px] w-[200px]  hover:scale-110 hover:transition-all   " data-aos="zoom-in-up" src="https://squareboat.com/storage/850/MicrosoftTeams-image-%2817%29.png" alt="hudle">
+  
+        <img class="client-logo fix-70 h-[30px] w-[200px] hover:scale-110 hover:transition-all  " data-aos="zoom-in-up" src="https://squareboat.com/storage/851/MicrosoftTeams-image-%2815%29.png" alt="hudle" >
+   
+        <img class="client-logo fix-70 h-[30px] w-[100px] hover:scale-110 hover:transition-all " data-aos="zoom-in-up" src="https://squareboat.com/storage/890/Chegg_logo.svg" alt="hudle">
+   
+        <img class="client-logo fix-70 h-[90px] w-[80px] hover:scale-110 hover:transition-all  " data-aos="zoom-in-up" src="https://squareboat.com/storage/3/jubilant.svg" alt="hudle" >
+  
+       </div>
+  
+  
+  
+       <div class="flex flex-col sm:flex sm:flex-row justify-center items-center sm:space-x-8 md:space-x-10 lg:space-x-16 xl:space-x-40 mt-[100px] space-y-20 sm:space-y-0">
+  
+        <div class="">
+          <img class="client-logo fix-70 h-[30px] w-[200px] hover:scale-110 hover:transition-all  " data-aos="zoom-in-up" src="https://squareboat.com/storage/30/paisabazaar.svg" alt="hudle" >
+        </div>
+        
+        <div class="">
+          <img class="client-logo fix-70 h-[30px] w-[200px]  hover:scale-110 hover:transition-all " data-aos="zoom-in-up" src="https://squareboat.com/storage/14/pvr-full.svg" alt="hudle" >
+        </div>
+        
+        <div class="">
+          <img class="client-logo fix-70 h-[30px] w-[100px]  hover:scale-110 hover:transition-all " data-aos="zoom-in-up" src="https://squareboat.com/storage/131/logo-4d2d81aefcf296bc100d9edc114c2ea5.png" alt="hudle">
+        </div>
+        
+        <div class="">
+          <img class="client-logo fix-70 h-[30px] w-[80px]  hover:scale-110 hover:transition-all " data-aos="zoom-in-up" src="https://squareboat.com/storage/136/Elevation_Primary_logo_RGB%402x.png" alt="hudle">
+        </div>
+        
+       </div>
+  
+  
+  
+       <div class="flex flex-col sm:flex sm:flex-row justify-center items-center sm:space-x-8 md:space-x-10 lg:space-x-16 xl:space-x-40 mt-[100px] space-y-20 sm:space-y-0">
+  
+        <div class="">
+          <img class="client-logo fix-70 h-[30px] w-[200px]  hover:scale-110 hover:transition-all " data-aos="zoom-in-up"  src="https://squareboat.com/storage/4/hudle.svg" alt="hudle" >
+        </div>
+        
+        <div class="">
+          <img class="client-logo fix-70 h-[30px] w-[200px] hover:scale-110 hover:transition-all" data-aos="zoom-in-up" src="https://squareboat.com/storage/20/lbb-full.svg" alt="hudle" >
+        </div>
+        
+        <div class="">
+          <img class="client-logo fix-70 h-[30px] w-[100px] hover:scale-110 hover:transition-all" data-aos="zoom-in-up" src="https://squareboat.com/storage/24/max-estates-full.svg" alt="hudle" >
+        </div>
+        
+        <div class="">
+          <img class="client-logo fix-70 h-[30px] w-[80px] hover:scale-110 hover:transition-all" data-aos="zoom-in-up" src="https://squareboat.com/storage/25/inlingua-full.svg" alt="hudle" >
+        </div>
+        
+       </div>
+
+     </div>
+
+    
+   
+   
+    
+      <div class="p-4">
+
+        <div class="flex flex-col sm:flex sm:flex-row justify-center items-center text-center  sm:mt-[100px]">
+          <div>
+            <h1 class="text-[15px] sm:text-[20px] font-bold  text-purple-950">FINDING & WORKING WITH THE</h1>
+            <h1 class="font2 text-[25px] sm:text-[40px] font-bold  text-purple-950">Best Web Design Agency</h1>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex sm:flex-row  justify-evenly items-center p-4 mt-[20px] sm:mt-[50px]">
+          <div class="left sm:w-[600px] font-bold text-purple-950">
+            <h1 class="text-[20px] sm:text-[25px]">Whether starting a brand from the ground up or overhauling your current website, working with a website design agency gives you access to the top experts in web design.</h1>
+          </div>
+          <div class="right sm:w-[500px] sm:text-[16px] text-gray-700 ">
+            <p> In turn, these experts have access to leading tools, modern trends, best practices and more to help ensure that your website is not only unique but built to perform — if you find the right agency, that is. Not all agencies are created equal.
+
+              We’ll breakdown exactly what to look for in a partner to help you choose the best website design agency for your project. </p>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="flex justify-center items-center sm:text-center border-b-2 border-gray-400 mt-[20px] sm:mt-[50px] p-4">
+        <div class="">
+          <h1 class="text-[15px] sm:text-[20px] font-bold">OUR EXPERTS HAVE WON INDUSTRY AWARDS</h1>
+          <h1 class="font2 text-[25px]  sm:text-[40px] font-bold">Recognized Digital Agency Experts</h1>
+        </div>
+      </div>
+
+      <!-- <div>
+        <div class="flex flex-col sm:flex sm:flex-row justify-center items-center sm:space-x-[180px] space-y-10 sm:space-y-0 mt-[100px]">
+
+          <img decoding="async" class="invert" loading="lazy" src="https://www.digitalsilk.com/wp-content/uploads/2022/07/award-IMA-WHITE-1.svg" alt="Digital Silk IMA award" width="120" height="38">
+  
+          <img decoding="async" class="invert" loading="lazy" src="https://www.digitalsilk.com/wp-content/uploads/2022/07/pngwing-1.svg" alt="Digital Silk Telly award" width="120" height="117">
+  
+  
+          <img decoding="async" class="invert" loading="lazy" src="https://www.digitalsilk.com/wp-content/uploads/2022/12/Marcom_logo-1-120x67.png" alt="Marcon awards" width="120" height="67" data-eio="p">
+
+          <img decoding="async" class="invert" loading="lazy" src="https://www.digitalsilk.com/wp-content/uploads/2022/07/horizon-interactive-awards-logo-vector-1.svg" alt="Digital Silk Horizon Interactive award" width="120" height="119">
+
+        </div>
+
+        <div  class="flex flex-col sm:flex sm:flex-row justify-center items-center sm:space-x-[180px] mt-[100px] space-y-20 sm:space-y-0 ">
+          <img decoding="async" class="invert" loading="lazy" src="https://www.digitalsilk.com/wp-content/uploads/2022/07/logo_ca_trans-1.svg" alt="Digital Silk Communicator award" width="120" height="30">
+
+          <img decoding="async" class="invert" loading="lazy" src="https://www.digitalsilk.com/wp-content/uploads/2022/12/Videographer_logo-1-120x38.png" alt="Videographer logo" width="120" height="38" data-eio="p">
+
+          <img decoding="async" class="invert" loading="lazy" src="https://www.digitalsilk.com/wp-content/uploads/2022/07/awwwards-seeklogo.com-1.svg" alt="Digital Silk Awwwards" width="120" height="19">
+
+          <img decoding="async" class="invert" loading="lazy" src="https://www.digitalsilk.com/wp-content/uploads/2022/07/Group-815.svg" alt="Digital Silk W3 award" width="120" height="31">
+
+        </div>
+
+        <div class="flex flex-col sm:flex sm:flex-row justify-center items-center sm:space-x-[180px] space-y-10 sm:space-y-0 mt-[100px]">
+
+          <img decoding="async" class="invert" loading="lazy" src="https://www.digitalsilk.com/wp-content/uploads/2022/07/award-IMA-WHITE-1.svg" alt="Digital Silk IMA award" width="120" height="38">
+  
+          <img decoding="async" class="invert" loading="lazy" src="https://www.digitalsilk.com/wp-content/uploads/2022/07/pngwing-1.svg" alt="Digital Silk Telly award" width="120" height="117">
+  
+  
+          <img decoding="async" class="invert" loading="lazy" src="https://www.digitalsilk.com/wp-content/uploads/2022/12/Marcom_logo-1-120x67.png" alt="Marcon awards" width="120" height="67" data-eio="p">
+
+          <img decoding="async" class="invert" loading="lazy" src="https://www.digitalsilk.com/wp-content/uploads/2022/07/horizon-interactive-awards-logo-vector-1.svg" alt="Digital Silk Horizon Interactive award" width="120" height="119">
+
+        </div>
+
+        <div  class="flex flex-col sm:flex sm:flex-row justify-center items-center sm:space-x-[180px] mt-[100px] space-y-20 sm:space-y-0 ">
+          <img decoding="async" class="invert" loading="lazy" src="https://www.digitalsilk.com/wp-content/uploads/2022/07/logo_ca_trans-1.svg" alt="Digital Silk Communicator award" width="120" height="30">
+
+          <img decoding="async" class="invert" loading="lazy" src="https://www.digitalsilk.com/wp-content/uploads/2022/12/Videographer_logo-1-120x38.png" alt="Videographer logo" width="120" height="38" data-eio="p">
+
+          <img decoding="async" class="invert" loading="lazy" src="https://www.digitalsilk.com/wp-content/uploads/2022/07/awwwards-seeklogo.com-1.svg" alt="Digital Silk Awwwards" width="120" height="19">
+
+          <img decoding="async" class="invert" loading="lazy" src="https://www.digitalsilk.com/wp-content/uploads/2022/07/Group-815.svg" alt="Digital Silk W3 award" width="120" height="31">
+
+        </div>
+
+      </div> -->
+
+
+
+
+      <!-- footer -->
+
+      <!-- component -->
+<footer class="white mt-[50px] text-center sm:text-start sm:mt-[200px]">
+  <div class="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+      <div>
+      <img src="webdenlogo.png" class="mr-5 h-6 sm:h-9" alt="logo" />
+        <p class=" mt-4 text-sm text-gray-600">
+          Webdenn is provide you most worldclass websites
+        </p>
+        <div class="flex items-center justify-center mt-8 space-x-6 text-gray-600">
+          <a class="hover:opacity-75" href target="_blank" rel="noreferrer">
+            <span class="sr-only"> Facebook </span>
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
+            </svg>
+          </a>
+          <a class="hover:opacity-75" href target="_blank" rel="noreferrer">
+            <span class="sr-only"> Instagram </span>
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clipRule="evenodd" />
+            </svg>
+          </a>
+          <a class="hover:opacity-75" href target="_blank" rel="noreferrer">
+            <span class="sr-only"> Twitter </span>
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+            </svg>
+          </a>
+          <a class="hover:opacity-75" href target="_blank" rel="noreferrer">
+            <span class="sr-only"> GitHub </span>
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+            </svg>
+          </a>
+          <a class="hover:opacity-75" href target="_blank" rel="noreferrer">
+            <span class="sr-only"> Dribbble </span>
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fillRule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c5.51 0 10-4.48 10-10S17.51 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z" clipRule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 gap-8 lg:col-span-2 sm:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <p class="font-medium">
+            Company
+          </p>
+          <nav class="flex flex-col mt-4 space-y-2 text-sm text-gray-500">
+            <a class="hover:opacity-75" href> About </a>
+            <a class="hover:opacity-75" href> Meet the Team </a>
+            <a class="hover:opacity-75" href> History </a>
+            <a class="hover:opacity-75" href> Careers </a>
+          </nav>
+        </div>
+        <div>
+          <p class="font-medium">
+            Services
+          </p>
+          <nav class="flex flex-col mt-4 space-y-2 text-sm text-gray-500">
+            <a class="hover:opacity-75" href> 1on1 Coaching </a>
+            <a class="hover:opacity-75" href> Company Review </a>
+            <a class="hover:opacity-75" href> Accounts Review </a>
+            <a class="hover:opacity-75" href> HR Consulting </a>
+            <a class="hover:opacity-75" href> SEO Optimisation </a>
+          </nav>
+        </div>
+        <div>
+          <p class="font-medium">
+            Helpful Links
+          </p>
+          <nav class="flex flex-col mt-4 space-y-2 text-sm text-gray-500">
+            <a class="hover:opacity-75" href> Contact </a>
+            <a class="hover:opacity-75" href> FAQs </a>
+            <a class="hover:opacity-75" href> Live Chat </a>
+          </nav>
+        </div>
+        <div>
+          <p class="font-medium">
+            Legal
+          </p>
+          <nav class="flex flex-col mt-4 space-y-2 text-sm text-gray-500">
+            <a class="hover:opacity-75" href> Privacy Policy </a>
+            <a class="hover:opacity-75" href> Terms &amp; Conditions </a>
+            <a class="hover:opacity-75" href> Returns Policy </a>
+            <a class="hover:opacity-75" href> Accessibility </a>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <p class="mt-8 text-xs text-gray-800">
+      © 2024 Webdenn
+    </p>
+  </div>
+</footer>
 
 
 
 
 
 
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script>
-  AOS.init({
-    offset: 300
-  });
-</script>
 
-<!-- <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script> -->
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- foooter end -->
+
+    </div>
+
+    
+  <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js"></script> 
   <script src="script.js"></script>
 
+ <!-- For scroling Animation -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init( {
+      offset:300
+    });
+  </script>
+  
 </body>
 </html>
